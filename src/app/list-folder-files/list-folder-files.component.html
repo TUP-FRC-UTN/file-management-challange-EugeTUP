@@ -1,0 +1,68 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="mt-2">Archivos</h1>
+        </div>
+
+        <div class="col-3 mt-3">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" (click)="toggleTheme()" id="flexSwitchCheckDefault">
+            </div>
+        </div>
+
+        <div class="col-3  mt-3 position-relative">
+            <div class="dropdown ">
+            <button class="btn btn-primary  position-absolute end-0 py-2 px-3 dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Actions
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" (click)="changeStatus()">New</a></li>
+                <li><a class="dropdown-item" href="#" (click)="delete()">Delete</a></li>
+            </ul>
+        </div>
+    </div>
+    <hr class="mb-5 mt-4">
+
+</div>
+
+
+<table class="table  table-hover">
+    <thead>
+        <tr>
+            <th scope="col" (click)="selectAll()"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-medical-cross"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11 2l-.15 .005a2 2 0 0 0 -1.85 1.995v2.803l-2.428 -1.401a2 2 0 0 0 -2.732 .732l-1 1.732l-.073 .138a2 2 0 0 0 .805 2.594l2.427 1.402l-2.427 1.402a2 2 0 0 0 -.732 2.732l1 1.732l.083 .132a2 2 0 0 0 2.649 .6l2.428 -1.402v2.804a2 2 0 0 0 2 2h2l.15 -.005a2 2 0 0 0 1.85 -1.995v-2.804l2.428 1.403a2 2 0 0 0 2.732 -.732l1 -1.732l.073 -.138a2 2 0 0 0 -.805 -2.594l-2.428 -1.403l2.428 -1.402a2 2 0 0 0 .732 -2.732l-1 -1.732l-.083 -.132a2 2 0 0 0 -2.649 -.6l-2.428 1.4v-2.802a2 2 0 0 0 -2 -2h-2z" /></svg></th>
+            <th scope="col">Name</th>
+            <th scope="col">Date</th>
+            <th scope="col">Owners</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (item of files; track $index) {
+        <tr class="sapeeee" (click)="changeCkeck($index)"  >
+            <th scope="row">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox"  [checked]="check"  id="checkFile" (click)="changeCkeck($index)">
+                </div>
+            </th>
+            <td>
+                @if (item.type === FileTypes.FOLDER) {
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler me-2 icons-tabler-outline icon-tabler-folder-open"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 19l2.757 -7.351a1 1 0 0 1 .936 -.649h12.307a1 1 0 0 1 .986 1.164l-.996 5.211a2 2 0 0 1 -1.964 1.625h-14.026a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2h4l3 3h7a2 2 0 0 1 2 2v2" /></svg>
+                    {{item.name}}
+                }@else {
+                    <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler me-2 icons-tabler-outline icon-tabler-file"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /></svg>
+                    {{item.name}}
+                }
+            </td>
+            <td>{{item.creation | date:'MMM d, y'}}</td>
+            <td>@for (item of item.owners; track $index) {
+                <img src={{item.avatarUrl}} alt={{item.name}} class="owner-img ">
+                }
+            </td>
+        </tr>
+        }
+
+    </tbody>
+
+</table>
+

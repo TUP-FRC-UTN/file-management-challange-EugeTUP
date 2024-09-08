@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h1 class="mt-2">Archivos</h1>
+        </div>
+    </div>
+    <hr class="mb-5 mt-4">
+</div>
+
+
+<form #form="ngForm" (ngSubmit)="newFile()" class="px-3">
+    <div class="row">
+        <div class="mb-3 col-12 col-md-6">
+            <label for="inputName" class="form-label">Name</label>
+            <input type="text" class="form-control" id="inputName" name="name" #local="ngModel" [(ngModel)]="name"
+                required [ngClass]="{'is-invalid': local.invalid && (local.dirty || local.touched)}">
+        </div>
+        <div class="mb-3 col-12 col-md-6">
+            <label for="inputDate" class="form-label">Date</label>
+            <input type="date" class="form-control" id="inputDate" name="date" [(ngModel)]="date" #localDate="ngModel"
+                required [ngClass]="{'is-invalid': localDate.invalid  && (localDate.touched || localDate.dirty)}">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <label for="selectType" class="form-label mt-4">Type</label>
+            <select class="form-select  form-select-lg mb-3" id="selectType" aria-label="Large select example"
+                name="type" [(ngModel)]="type" #localType="ngModel" required
+                [ngClass]="{'is-invalid': localType.invalid}">
+                @for (item of types; track $index) {
+                @if (item == 0){
+                <option [ngValue]="item">FOLDER</option>
+                }@else {
+                <option [ngValue]="item">FILE</option>
+                }
+                }
+            </select>
+        </div>
+        <div class="col-10 col-md-5">
+            <label for="selectOwner" class="form-label mt-4">Owners</label>
+            <select class="form-select  form-select-lg mb-3" id="selectOwners" name="owner" [(ngModel)]="owner">
+                @for (item of owners; track $index) {
+                <option [ngValue]="item">
+                    {{item.name}}
+                </option>
+                }
+            </select>
+        </div>
+        <div class="col-1 mt-2">
+            <button type="button" class="btn btn-outline-secondary mt-5" (click)="add()"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12 5l0 14" />
+                    <path d="M5 12l14 0" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-floating">
+            <div class="owners">
+                @for (item of selectedOwners; track $index) {
+                <img (click)="removeOwner(item)" class="profile mt-3 mx-5" src="{{item.avatarUrl}}" alt="{{item.name}}">
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row position-relative mt-5">
+        <div class="col-6 ">
+            <button type="button" class="btn w-25 position-absolute start-0 btn-secondary"
+                (click)="changeStatus()">Back</button>
+        </div>
+        <div class="col-6">
+            <button type="submit" class="btn w-25 btn-primary position-absolute end-0"
+                [disabled]="!form.valid">Submit</button>
+        </div>
+    </div>
+</form>

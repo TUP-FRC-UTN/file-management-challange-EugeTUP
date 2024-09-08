@@ -78,14 +78,6 @@ export const FILE_LIST: FileItem[] = [
     owners: [...OWNERS],
   },
   {
-    id: '5',
-    name: 'another file with long name',
-    creation: new Date(),
-    type: FileType.FILE,
-    owners: [],
-    parentId: '45',
-  },
-  {
     id: '7',
     name: 'of',
     creation: new Date(),
@@ -93,20 +85,5 @@ export const FILE_LIST: FileItem[] = [
     owners: [],
     parentId: '45',
   },
-  {
-    id: '9',
-    name: 'new name for file',
-    creation: new Date(),
-    type: FileType.FILE,
-    owners: [],
-    parentId: '45',
-  },
-  {
-    id: '88',
-    name: 'new file',
-    creation: new Date(),
-    type: FileType.FILE,
-    owners: [],
-    parentId: '99',
-  },
+ 
 ];
